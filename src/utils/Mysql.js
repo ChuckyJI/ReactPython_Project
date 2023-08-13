@@ -43,7 +43,7 @@ app.get('/api/data2', (req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 3306;
+const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
