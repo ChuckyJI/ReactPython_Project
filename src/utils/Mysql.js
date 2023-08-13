@@ -10,7 +10,7 @@ const db = mysql.createConnection({
 });
 
 app.all("*", function (req, res) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', 'http://13.250.206.7:3000');
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     req.next();
