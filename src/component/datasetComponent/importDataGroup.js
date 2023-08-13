@@ -11,7 +11,7 @@ export default function ImportDataGroup(){
     const [data, setData] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:3005/api/data2')
+        axios.get('http://13.250.206.7:3306/api/data2')
             .then(response => setData(response.data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
