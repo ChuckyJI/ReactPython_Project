@@ -63,7 +63,9 @@ export default function Data(props){
                 }}>
                 {InputDataExplanation(jsontest)}
             </Card>
-            <span className='titleStyle'>Step 3: Match dataset</span>
+            <span className='titleStyle'>Step 3: Match dataset
+                <span style={{color:"black",fontSize:"12px"}}>(eg: <span style={{color:"red"}}>Feature Matching</span>, Feature Not matching)</span>
+            </span>
             {DatasetMatch(jsontest)[0]}
             <span className='titleStyle'>Step 4: Select data</span>
             {SelectFeatureInterface}

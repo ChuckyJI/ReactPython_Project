@@ -7,7 +7,7 @@ function SVC(props){
     const [Paramselection,value] = useParamStyle("SVC")
     const [kernel,setKernel] = useState("rbf")
 
-    const [degree,setDegree] = useState(kernel==='poly'?3:null)
+    const [degree,setDegree] = useState(kernel==='poly'?3:0)
     const degreeSlide = useSlide(degree,setDegree,3,10,3)
 
     const {getParamList} = props
