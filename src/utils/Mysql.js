@@ -3,14 +3,14 @@ const app = express();
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-    host: '13.214.187.252',
+    host: '13.212.119.178',
     user: 'root',
     password: 'KFJC23jd@1',
     database: 'researcherRecord'
 });
 
 app.all("*", function (req, res) {
-    res.header('Access-Control-Allow-Origin', 'http://13.214.187.252:3000');
+    res.header('Access-Control-Allow-Origin', 'http://13.212.119.178:3000');
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     req.next();

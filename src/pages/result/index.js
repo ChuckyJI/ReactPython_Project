@@ -16,7 +16,7 @@ export default function Result () {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        axios.get('http://13.214.187.252:3005/api/data')
+        axios.get('http://13.212.119.178:3005/api/data')
             .then(response => setData(response.data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
