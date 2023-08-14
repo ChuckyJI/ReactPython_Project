@@ -27,7 +27,7 @@ function App() {
     }
 
     const sendData = async (jsonData) => {
-        const url = 'http://13.212.119.178:3010/gettestdata';
+        const url = 'http://13.250.206.7:3010/gettestdata';
         try {
             await axios.post(url, jsonData, {
                 headers: {
