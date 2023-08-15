@@ -2,33 +2,33 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 
-// const db = mysql.createConnection({
-//     host: '13.250.206.7',
-//     user: 'root',
-//     password: 'KFJC23jd@1',
-//     database: 'researcherRecord'
-// });
-
 const db = mysql.createConnection({
-    host: 'localhost',
+    host: '13.250.206.7',
     user: 'root',
-    password: 'jcy901110',
+    password: 'KFJC23jd@1',
     database: 'researcherRecord'
 });
 
-// app.all("*", function (req, res) {
-//     res.header('Access-Control-Allow-Origin', 'http://13.250.206.7:3000');
-//     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT');
-//     res.header('Access-Control-Allow-Headers', 'Content-Type');
-//     req.next();
-// })
+// const db = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'jcy901110',
+//     database: 'researcherRecord'
+// });
 
 app.all("*", function (req, res) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', 'http://13.250.206.7:3000');
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     req.next();
 })
+
+// app.all("*", function (req, res) {
+//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+//     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type');
+//     req.next();
+// })
 
 db.connect((err) => {
     if (err) {
