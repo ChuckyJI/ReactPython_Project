@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+    BarChartOutlined,
     ClusterOutlined, LinkOutlined,
     UploadOutlined,
     UserOutlined,
@@ -70,9 +71,14 @@ const Home  = (props) => {
                         },
                         {
                             key: '5',
+                            icon:<BarChartOutlined />,
+                            label: <Link to="/home/analysis" onClick={()=>setHomePage(false)}>Advanced Analysis</Link>,
                         },
                         {
                             key: '6',
+                        },
+                        {
+                            key: '7',
                             icon:<LinkOutlined />,
                             label: <Link to="/" onClick={()=>setHomePage(true)}><span style={{color:"white"}}>Home Page</span></Link>,
                         },

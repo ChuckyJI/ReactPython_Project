@@ -18,8 +18,6 @@ export default function GetInformation(getuuidList){
         eachModel.push(data)
     }
 
-    console.log(getuuidList && getuuidList['jsonString'])
-
     return (
         <Descriptions title="User Info" layout="vertical" bordered items={
             [

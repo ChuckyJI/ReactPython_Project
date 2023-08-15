@@ -101,6 +101,7 @@ export default function Data(props){
                 </div>
                 )
             }
+            <br/>
             <Row style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
                 <Col>
                     <Button

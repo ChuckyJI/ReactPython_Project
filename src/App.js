@@ -9,6 +9,7 @@ import {useState} from "react";
 import ModelMore from "./pages/model/indexIndustry";
 import {getJson} from "./testDataset";
 import axios from "axios";
+import Analysis from "./pages/result/analysis";
 
 function App() {
     const [dataGet,] = useState([])
@@ -62,6 +63,7 @@ function App() {
                   <Route path="/home/dataset" element={<Data getWholeData={getWholeData}/>}/>
                   <Route path="/home/model" element={<Model getWholeModel={getWholeModel}/>}/>
                   <Route path="/home/result" element={<Result/>}/>
+                  <Route path="/home/analysis" element={<Analysis/>}/>
                   <Route path="/home/modelmore" element={<ModelMore getWholeModel={getWholeModel}/>}/>
               </Route>
           </Routes>
