@@ -7,7 +7,7 @@ export default function Analysis(){
     const [data, setData] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:3005/api/data')
+        axios.get('http://13.250.206.7:3005/api/data')
             .then(response => setData(response.data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
