@@ -89,7 +89,7 @@ export default function InputDataExplanation(jsontest2){
 
 
     return(
-        <Table columns={columns} dataSource={inputList}/>
+        <Table columns={columns} dataSource={inputList} pagination={false}/>
     )
 }
 

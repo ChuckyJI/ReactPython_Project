@@ -138,19 +138,28 @@ export default function CalculateEachFunction(data){
             {
                 title: 'Aggregated Accuracy',
                 dataIndex: 'accuracy',
-                key: 'accuracy',
+                defaultSortOrder: 'descend',
+                sorter: (a, b) => a.accuracy - b.accuracy,
             }
         ];
         const data = []
         for(let i = 0;i<accuracyStat.length;i++){
             const tempObject = {}
             tempObject['name']=outputDataTime[i]['name']
-            tempObject['accuracy']=(Math.log(accuracyStat[i])/10).toFixed(4)
+            if(!accuracyStat[i]){
+                tempObject['accuracy']=0
+            }
+            else{
+                tempObject['accuracy']=(Math.log(accuracyStat[i])/10).toFixed(4)
+            }
             data[i] = tempObject
         }
 
+        const onChange = (sorter) => {
+        };
+
         return(
-            <Table columns={columns} dataSource={data} pagination={false} />
+            <Table columns={columns} dataSource={data} pagination={false} onChange={onChange}/>
         )
     }
 
@@ -164,7 +173,8 @@ export default function CalculateEachFunction(data){
             {
                 title: 'Aggregated Frequency',
                 dataIndex: 'frequency',
-                key: 'frequency',
+                defaultSortOrder: 'descend',
+                sorter: (a, b) => a.frequency - b.frequency,
             }
         ];
         const data = []
@@ -180,11 +190,11 @@ export default function CalculateEachFunction(data){
 
             data[i] = tempObject
         }
-
-        console.log(timeStat)
+        const onChange = (sorter) => {
+        };
 
         return(
-            <Table columns={columns} dataSource={data} pagination={false} />
+            <Table columns={columns} dataSource={data} pagination={false} onChange={onChange}/>
         )
     }
 

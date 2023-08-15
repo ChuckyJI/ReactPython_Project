@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Divider,} from 'antd';
+import {Anchor, BackTop, Button, Divider,} from 'antd';
 import SheetDisplay from "../../component/resultComponent/sheetDisplay";
 import GetInformation from "../../component/resultComponent/getInformation";
 import axios from "axios";
 
-export default function Result () {
+export default function Result (props) {
     const [getUuid, setGetUuid] = useState("");
+
+    const { getWholeData } = props
+
+    const { Link } = Anchor;
 
     const [getUuidlist,] = useState([])
     const getUUIDNumber = (data) =>{
@@ -26,14 +30,35 @@ export default function Result () {
     const dataAfter = SheetDisplay({getUUIDNumber},data)[1]
     const passRes = dataAfter.find(p=>p.sampleID===lastUuid)
 
+    const handleScrollToStart = (sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     return(
         <div>
-            <span className="titleStyle">Result Sheet</span>
-            {SheetDisplay({getUUIDNumber},data)[0]}
+            <div id="backToFront">
+                <span className="titleStyle">Result Sheet</span>
+                {SheetDisplay({getUUIDNumber,getWholeData},data)[0]}
+            </div>
             <Divider/>
-            <span className="titleStyle">Detail</span>
-            {GetInformation(passRes)}
+
+            <div id="Details">
+                <span className="titleStyle">Detail</span>
+                {GetInformation(passRes)}
+                <br/>
+                <Button block>
+                    <Anchor
+                        onClick={()=>handleScrollToStart('backToFront')}
+                        affix={false}
+                    >
+                        <Link href="#backToFront" title="Back to Top"></Link>
+                    </Anchor>
+                </Button>
+            </div>
+
         </div>
     )
 }

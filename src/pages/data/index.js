@@ -109,7 +109,7 @@ export default function Data(props){
                         disabled={(DatasetMatch(transformedData)[1].length===5 && DatasetMatch(transformedData)[2]===0)?true:null}
                         onClick={()=>passValue()}
                         loading={status}
-                    >{!status?"Confirm the dataset":"Dataset Selection is Complete"}</Button>
+                    >{!status?"Confirm the dataset":"Dataset Selection is Complete. Please go to Model part!"}</Button>
                 </Col>
             </Row>
         </div>

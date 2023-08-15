@@ -1,15 +1,19 @@
 import useParamStyle from "../../hook/useParamStyle";
-import {Divider, Select} from "antd";
-import {useState} from "react";
+import {Divider, notification, Select} from "antd";
+import {useEffect, useMemo, useState} from "react";
 import useSlide from "../../hook/useSlide";
 import React from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Space } from 'antd';
 
+const Context = React.createContext({
+    name: 'Default',
+});
+
 function NN(props){
     const [Paramselection,value] = useParamStyle("Neural Network")
 
-    const [layer,setLayer] = useState([])
+    const [layer,setLayer] = useState({"users":[{"layers":"128","function":"relu"},{"layers":"64","function":"relu"}]},{"layers":"32","function":"relu"})
     const onFinish = (values: any) => {
         setLayer(values)
     };
@@ -34,9 +38,31 @@ function NN(props){
     const {getParamList} = props
     getParamList({name:"NN",epochs:epochs,earlyStopingStep:earlyStopingStep,layer:layer,optimizer:optimizer,lossFunciton:lossFunciton})
 
+    const [api, contextHolder] = notification.useNotification();
+    const openNotification = (placement) => {
+        api.info({
+            message: `${placement}`,
+            description: <Context.Consumer>{({ name,layerSelect }) => `The ${name} are generated successfully.`}</Context.Consumer>,
+            placement,
+        });
+    };
+    const contextValue = useMemo(
+        () => ({
+            name: 'customized layers',
+        }),
+        [],
+    );
+
+    const [statusButtonLayer, setStatusButtonLayer] = useState(false)
+    function confirmSelectLayers(){
+        setStatusButtonLayer(true)
+    }
+
     function Customized(){
         return(
             <>
+                <Context.Provider value={contextValue}>
+                    {contextHolder}
                 Step 1: Confirm the layer of Neural Network <br/>
                 <span style={{fontSize:"12px"}}>
                     Hint:<br/>
@@ -68,13 +94,13 @@ function NN(props){
                                             rules={[{ required: true, message: 'Missing activation function' }]}
                                             style={{width:"400px"}}
                                         >
-                                            <Input placeholder="Activiation function: relu/sigmoid/tanh" />
+                                            <Input placeholder="Activiation function: relu/sigmoid/tanh"/>
                                         </Form.Item>
                                         <MinusCircleOutlined onClick={() => remove(name)} />
                                     </Space>
                                 ))}
                                 <Form.Item>
-                                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                                    <Button type="dashed" onClick={() => {add();confirmSelectLayers()}} block icon={<PlusOutlined />}>
                                         Add layer
                                     </Button>
                                 </Form.Item>
@@ -82,8 +108,14 @@ function NN(props){
                         )}
                     </Form.List>
                     <Form.Item>
-                        <Button block htmlType="submit" style={{width:"auto"}}>
-                            Submit the layer
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            style={{width:"auto"}}
+                            onClick={()=>openNotification('Neural Network Notification')}
+                            disabled={!statusButtonLayer}
+                        >
+                            Submit the Layer
                         </Button>
                     </Form.Item>
                 </Form>
@@ -101,16 +133,16 @@ function NN(props){
                                 label: 'Adam: SGD based on adaptive estimation of first-order and second-order moments.',
                             },
                             {
-                                value: 'AdamW',
-                                label: 'AdamW: Adam with an added method to decay weights per the techniques.',
+                                value: 'SGD',
+                                label: 'SGD: A basic optimizer that updates the models weights using the gradient of the loss function.',
                             },
                             {
-                                value: 'Lion',
-                                label: 'Lion: uses the sign operator to control the magnitude of the update'
+                                value: 'rmsprop',
+                                label: 'RMSprop: adapts the learning rate for each parameter based on the historical gradient information.'
                             },
                             {
-                                value: 'Adafactor',
-                                label: 'Adafactor: commonly used in NLP tasks, and has the advantage of taking less memory.',
+                                value: 'adadelta',
+                                label: 'Adadelta: An extension of Adagrad that aims to improve its limitations. '
                             },
                         ]}
                     />
@@ -129,16 +161,12 @@ function NN(props){
                                 label: 'categorical_crossentropy: Computes the categorical crossentropy loss.',
                             },
                             {
-                                value: 'MSE',
+                                value: 'mean_squared_error',
                                 label: 'MSE: Computes the mean squared error between labels and predictions.',
                             },
                             {
                                 value: 'binary_crossentropy',
                                 label: 'binary_crossentropy: Computes the binary crossentropy loss.'
-                            },
-                            {
-                                value: 'MAE',
-                                label: 'Computes the mean absolute error between labels and predictions.',
                             },
                         ]}
                     />
@@ -147,6 +175,7 @@ function NN(props){
                 {earlyStopingStepSelect}
                 Step 5: Choose the number of epochs<br/>
                 {seteEpochsSelect}
+                </Context.Provider>
             </>
         )
     }

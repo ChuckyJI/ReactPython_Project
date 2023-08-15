@@ -1,12 +1,51 @@
-import {Space, Table, Tag} from "antd";
+import {Anchor, Button, Col, Pagination, Popconfirm, Row, Select, Space, Table, Tag} from "antd";
 import React, {useState} from "react";
-
+import axios from "axios";
 export default function SheetDisplay(props,resList){
 
     const onSelectUUID= (data)=>{
-        const { getUUIDNumber } = props
+        const { getUUIDNumber,_ } = props
         getUUIDNumber(data)
     }
+
+    const prepareData = []
+    const [status,setStatus] = useState(true)
+    const showTestData= (data)=>{
+        prepareData.push(resList.find((p)=>p.sampleID===data.sampleID))
+        let finalData = {}
+        finalData=prepareData[prepareData.length-1].jsonString
+        finalData=finalData.slice(0,-1)+" ,'dataType':"+prepareData[prepareData.length-1].numberOfDataset.substring(8)+"}"
+        // finalData=finalData.replace(/'/g, '"')
+        // const finalDataVersion = JSON.stringify(finalData)
+
+        console.log(finalData)
+        setStatus(false)
+
+        const { _,getWholeData } = props
+        getWholeData({data:finalData,process:0.5})
+    }
+
+    const handleScrollToSection = (sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    const deleteRecord = async (data) => {
+        const url = 'http://13.250.206.7:3010/deleteRecord';
+        const sampleIdDelete = data.sampleID
+        try {
+            await axios.post(url, sampleIdDelete, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        } catch (error) {
+        }
+
+        window.location.href = "/home/result"
+    };
 
     const columns = [
         {
@@ -71,10 +110,41 @@ export default function SheetDisplay(props,resList){
             title: 'Action',
             key: 'action',
             render: (_, record) => (
-                <Space size="middle">
-                    <a onClick={()=>onSelectUUID(record.sampleID)}>Details</a>
-                </Space>
-            ),
+                <Row>
+                    <Col span={8}>
+                        <Button block>
+                            <Anchor
+                                onClick={()=>{onSelectUUID(record.sampleID);handleScrollToSection('details')}}
+                                affix={false}
+                                items={[
+                                    {
+                                        key: '1',
+                                        href: '#Details',
+                                        title: 'Details',
+                                    },
+                                ]}
+                            />
+                        </Button>
+                    </Col>
+
+                    <Col span={8}>
+                        <Button type="primary" style={{width:"100%"}} onClick={()=>showTestData(record)} loading={!status}>Redo</Button>
+                    </Col>
+
+                    <Col span={8}>
+                        <Popconfirm
+                            title="Delete the record"
+                            description="Are you sure to delete this record? This operation is permanent."
+                            okText="Yes"
+                            cancelText="No"
+                            onConfirm={()=>deleteRecord(record)}
+                        >
+                            <Button danger >Delete</Button>
+                        </Popconfirm>
+
+                    </Col>
+                </Row>
+            )
         },
     ];
 
@@ -122,7 +192,8 @@ export default function SheetDisplay(props,resList){
     }
 
     return[
-        <Table columns={columns} dataSource={data}/>,
-        newObjectList
+        <Table columns={columns} dataSource={data} pagination={{defaultPageSize:"25"}}/>,
+        newObjectList,
+        prepareData
     ]
 }

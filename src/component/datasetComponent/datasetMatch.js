@@ -8,6 +8,7 @@ export default function DatasetMatch(jsontest){
         <Table
             columns={columns}
             dataSource={data}
+            pagination={false}
         />,
         numberList,
         firstNumber

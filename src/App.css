@@ -44,3 +44,25 @@ html{
 #root{
   height:  100vh;
 }
+
+.ant-anchor-ink::before {
+  background-color: transparent;
+}
+
+.ant-anchor-link {
+  margin: 0 0 0 0;
+  padding:0 0 0 0;
+}
+
+:where(.css-dev-only-do-not-override-fpg3f5).ant-anchor-wrapper .ant-anchor .ant-anchor-link{
+  padding-inline: 0;
+  padding-block: 0;
+}
+
+/*:where(.css-dev-only-do-not-override-fpg3f5).ant-btn{*/
+/*  padding:0 0 0 0;*/
+/*}*/
+
+:where(.css-dev-only-do-not-override-fpg3f5).ant-anchor-wrapper:not(.ant-anchor-wrapper-horizontal) .ant-anchor::before {
+  border-inline-start: 0;
+}

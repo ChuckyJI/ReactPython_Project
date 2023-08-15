@@ -6,7 +6,7 @@ import {
     UserOutlined,
     VideoCameraOutlined,
 } from '@ant-design/icons';
-import {Layout, Menu, Button, theme, Row, Col, Progress, Space, Divider} from 'antd';
+import {Layout, Menu, Button, theme, Row, Col, Progress, Space, Divider, Modal} from 'antd';
 import "./index.scss"
 import {Link, Outlet} from "react-router-dom";
 import logo from '../../../src/static/logo.png'
@@ -25,12 +25,25 @@ const Home  = (props) => {
     function sendFinalCommand(){
         getFianlCommand(true)
     }
-    
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        getFianlCommand(true)
+        setIsModalOpen(false);
+        refreshPage()
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
     function refreshPage() {
-        window.location.href='/'
+        window.location.reload()
     }
 
-    const [homePage,setHomePage] = useState(true)
+    const [homePage,setHomePage] = useState(false)
 
     return (
         <Layout hasSider>
@@ -80,7 +93,7 @@ const Home  = (props) => {
                         {
                             key: '7',
                             icon:<LinkOutlined />,
-                            label: <Link to="/" onClick={()=>setHomePage(true)}><span style={{color:"white"}}>Home Page</span></Link>,
+                            label: <Link to="/home" onClick={()=>setHomePage(true)}><span style={{color:"white"}}>Home Page</span></Link>,
                         },
                     ]}
                 />
@@ -101,8 +114,13 @@ const Home  = (props) => {
                                 danger
                                 style={{width:"auto"}}
                                 disabled={finalProcess !== 1}
-                                onClick={sendFinalCommand}
+                                onClick={()=>{sendFinalCommand();showModal()}}
                             >Start to train models</Button>
+                            <Modal title="Model Training" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                                <p>The model will be training soon.</p>
+                                <p>Training result will be displayed in the "Result" view.</p>
+                                <p>Are you sure you are about to run this training now?</p>
+                            </Modal>
                         </Col>
                         <Col span={6} style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
                             <Button
@@ -126,7 +144,6 @@ const Home  = (props) => {
                             background: colorBgContainer,
                         }}
                     >
-                        {homePage?<img src={homepage} style={{width:"100%"}}/>:null}
                         <Outlet />
                     </div>
                 </Content>
