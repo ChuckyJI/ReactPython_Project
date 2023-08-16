@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
     BarChartOutlined,
-    ClusterOutlined, LinkOutlined,
+    ClusterOutlined, HeatMapOutlined, LinkOutlined,
     UploadOutlined,
     UserOutlined,
     VideoCameraOutlined,
@@ -11,6 +11,7 @@ import "./index.scss"
 import {Link, Outlet} from "react-router-dom";
 import logo from '../../../src/static/logo.png'
 import homepage from '../../../src/static/homePage.png'
+import axios from "axios";
 
 const { Header, Sider, Content,Footer } = Layout;
 
@@ -89,9 +90,14 @@ const Home  = (props) => {
                         },
                         {
                             key: '6',
+                            icon:<HeatMapOutlined />,
+                            label: <Link to="/home/log" onClick={()=>setHomePage(false)}>Training Log</Link>,
                         },
                         {
                             key: '7',
+                        },
+                        {
+                            key: '8',
                             icon:<LinkOutlined />,
                             label: <Link to="/home" onClick={()=>setHomePage(true)}><span style={{color:"white"}}>Home Page</span></Link>,
                         },

@@ -5,14 +5,20 @@ import Model from './pages/model/index'
 import Result from './pages/result/index'
 import {BrowserRouter, Link, Route, Routes} from 'react-router-dom'
 import Data from "./pages/data";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ModelMore from "./pages/model/indexIndustry";
 import {getJson} from "./testDataset";
 import axios from "axios";
 import Analysis from "./pages/result/analysis";
 import HomeIndex from "./pages/home/homeIndex";
+import TrainingLog from "./pages/result/trainingLog";
 
 function App() {
+
+    useEffect(() => {
+        document.title = 'Institute of T2 Hospital';
+    }, [])
+
     const [dataGet,] = useState([])
 
     const [finalProcess,setFinalProcess] = useState(0)
@@ -67,6 +73,7 @@ function App() {
                   <Route path="/home/model" element={<Model getWholeModel={getWholeModel}/>}/>
                   <Route path="/home/result" element={<Result getWholeData={getWholeData}/>}/>
                   <Route path="/home/analysis" element={<Analysis/>}/>
+                  <Route path="/home/log" element={<TrainingLog/>}/>
                   <Route path="/home" element={<HomeIndex/>}/>
                   <Route path="/home/modelmore" element={<ModelMore getWholeModel={getWholeModel}/>}/>
               </Route>
