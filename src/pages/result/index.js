@@ -3,6 +3,7 @@ import {Anchor, BackTop, Button, Divider,} from 'antd';
 import SheetDisplay from "../../component/resultComponent/sheetDisplay";
 import GetInformation from "../../component/resultComponent/getInformation";
 import axios from "axios";
+import ElementFilter from "../../component/resultComponent/elementFilter";
 
 export default function Result (props) {
     const [getUuid, setGetUuid] = useState("");
@@ -41,6 +42,13 @@ export default function Result (props) {
         <div>
             <div id="backToFront">
                 <span className="titleStyle">Result Sheet</span>
+                <Divider/>
+                {/*<span className="lineHeight">*/}
+                {/*    Model Filter:{ElementFilter(data)}<br/>*/}
+                {/*    Patient Filter:<br/>*/}
+                {/*    Dataset Filter:<br/>*/}
+                {/*</span>*/}
+                {/*<Divider/>*/}
                 {SheetDisplay({getUUIDNumber,getWholeData},data)[0]}
             </div>
             <Divider/>

@@ -34,8 +34,10 @@ export default function Data(props){
         const finalResult = JSON.stringify(resultData)
         setStatus(true)
 
-        const {getWholeData} = props
+        const {getWholeData,getId} = props
         getWholeData({data:finalResult,process:0.5})
+        getId(JSON.parse(jsontest1).id)
+        getId(JSON.parse(jsontest1).patientId)
     }
 
     return(

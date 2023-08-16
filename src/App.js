@@ -54,12 +54,18 @@ function App() {
             const lastData = dataGet[dataGet.length - 1].data;
             const lastModel = modelGet[modelGet.length - 1].model;
             setFinalJson({
-                id:getJson["id"],
+                id:idHashed[0],
+                patientId:idHashed[1],
                 data: lastData,
                 model: lastModel
             });
             sendData(JSON.stringify(finalJson))
         }
+    }
+
+    const [idHashed,] = useState([])
+    const getId=(data)=>{
+        idHashed.push(data)
     }
 
     console.log(finalJson)
@@ -69,7 +75,7 @@ function App() {
           <Routes>
               <Route path="/login" element={<Login/>}/>
               <Route path="/" element={<Home finalProcess={finalProcess} getFianlCommand={getFianlCommand}/>}>
-                  <Route path="/home/dataset" element={<Data getWholeData={getWholeData}/>}/>
+                  <Route path="/home/dataset" element={<Data getWholeData={getWholeData} getId={getId}/>}/>
                   <Route path="/home/model" element={<Model getWholeModel={getWholeModel}/>}/>
                   <Route path="/home/result" element={<Result getWholeData={getWholeData}/>}/>
                   <Route path="/home/analysis" element={<Analysis/>}/>
