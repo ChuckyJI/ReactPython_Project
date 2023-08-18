@@ -38,13 +38,19 @@ export default function Result (props) {
         }
     };
 
+    // useEffect(() => {
+    //     if(ElementFilter(data)[1].length !== 0){
+    //         setData(ElementFilter(data)[1])
+    //     }
+    // }, [data]);
+
     return(
         <div>
             <div id="backToFront">
                 <span className="titleStyle">Result Sheet</span>
                 <Divider/>
                 {/*<span className="lineHeight">*/}
-                {/*    Model Filter:{ElementFilter(data)}<br/>*/}
+                {/*    Model Filter:{ElementFilter(data)[0]}*/}
                 {/*    Patient Filter:<br/>*/}
                 {/*    Dataset Filter:<br/>*/}
                 {/*</span>*/}

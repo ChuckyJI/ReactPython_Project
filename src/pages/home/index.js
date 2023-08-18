@@ -9,9 +9,7 @@ import {
 import {Layout, Menu, Button, theme, Row, Col, Progress, Space, Divider, Modal} from 'antd';
 import "./index.scss"
 import {Link, Outlet} from "react-router-dom";
-import logo from '../../../src/static/logo.png'
-import homepage from '../../../src/static/homePage.png'
-import axios from "axios";
+import logo from '../../../src/static/new_logo.png'
 
 const { Header, Sider, Content,Footer } = Layout;
 
