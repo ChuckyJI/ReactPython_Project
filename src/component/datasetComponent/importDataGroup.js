@@ -30,9 +30,7 @@ export default function ImportDataGroup(){
         );
     }
 
-
-
-    const newObject = data.find(p=>p.id===number)
+    const newObject = data[number-1]
     const outputresult = newObject && newObject.jsonData
 
     return [

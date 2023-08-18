@@ -48,7 +48,7 @@ app.get('/api/data', (req, res) => {
 });
 
 app.get('/api/data2', (req, res) => {
-    const query = 'SELECT * FROM receieveJsonFromDoctor';
+    const query = 'SELECT * FROM receieveJsonFromDoctor where status = 1';
     db.query(query, (err, result) => {
         if (err) {
             throw err;
