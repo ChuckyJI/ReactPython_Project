@@ -3,7 +3,7 @@ import {Table} from "antd";
 export default function LogRecording(dataOrigin){
     const columns = [
         {
-            title: 'SampeleID',
+            title: 'SampleID',
             dataIndex: 'sampleID',
             key: 'sampleID',
         },
@@ -22,6 +22,6 @@ export default function LogRecording(dataOrigin){
     }
 
     return(
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={data} pagination={false}/>
     )
 }
