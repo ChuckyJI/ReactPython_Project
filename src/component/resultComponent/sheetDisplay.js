@@ -34,7 +34,7 @@ export default function SheetDisplay(props,resList){
 
     const deleteRecord = async (data) => {
         const url = 'http://13.250.206.7:3010/deleteRecord';
-        const sampleIdDelete = data.sampleID
+        const sampleIdDelete = data.createTime
         try {
             await axios.post(url, sampleIdDelete, {
                 headers: {
